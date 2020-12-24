@@ -53,22 +53,19 @@ jobs:
 
     - name: Git
       run: |
-        git branch -a
-        git status
-        git log -10 --pretty=oneline
-        ls -la
-
         git config --local user.name "API Generator"
         git add *.cs
         git commit -m "Generate SDK code for ${{ github.event.pull_request.title }}"
+        git reset --hard HEAD
+        git clean -fdx
 
     - name: Use .NET Core ${{ env.DOTNET_VERSION }}
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # - name: Build projects
-    #   run: dotnet build -c Release
+    - name: Build projects
+      run: dotnet build -c Release
 
     - name: Push changes
       uses: ad-m/github-push-action@master
