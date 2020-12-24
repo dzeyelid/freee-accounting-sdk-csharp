@@ -55,7 +55,7 @@ jobs:
       run: |
         git branch -a
         git status
-        it log -10 --pretty=oneline
+        git log -10 --pretty=oneline
         ls -la
 
         git config --local user.name "API Generator"
